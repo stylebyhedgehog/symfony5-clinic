@@ -9,9 +9,10 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\OneToOne;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\DoctorDataRepository")
+ * @ORM\Table(name="doctor")
+ * @ORM\Entity(repositoryClass="App\Repository\DoctorRepository")
  */
-class DoctorData
+class Doctor
 {
 
     /**
@@ -20,13 +21,6 @@ class DoctorData
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @var Usr
-     * @OneToOne(targetEntity="Usr")
-     * @JoinColumn(name="id_user", unique=true, referencedColumnName="id")
-     */
-    private $idUser;
 
     /**
      * @var string
@@ -46,20 +40,9 @@ class DoctorData
      */
     private $speciality;
 
-    public function getIdUser(): ?Usr
-    {
-        return $this->idUser;
-    }
-
-    public function setIdUser(?Usr $idUser): self
-    {
-        $this->idUser = $idUser;
-
-        return $this;
-    }
 
     /**
-     * @return Usr
+     * @return int
      */
     public function getId()
     {
@@ -67,9 +50,9 @@ class DoctorData
     }
 
     /**
-     * @param Usr $id
+     * @param int $id
      */
-    public function setId(Usr $id): void
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
@@ -122,5 +105,10 @@ class DoctorData
         $this->speciality = $speciality;
     }
 
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->getName()." ".$this->getSurname();
+    }
 
 }

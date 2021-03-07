@@ -1,0 +1,31 @@
+{# templates/registration/index.html.twig #} {% extends 'admin/adminPanel.html.twig' %} {%
+    block body %}
+    {% if 'ROLE_ADMIN' in app.user.roles  %}
+        <div class="container">
+            <table class="table">
+                <tr>
+                    <th>Доктор</th>
+                    <th>Дата</th>
+                    <th>Слоты</th>
+                    <th>Кабинет</th>
+                    <th>Редактировать</th>
+                    <th>Удалить</th>
+                </tr>
+                {% for schedule in listSchedule %}
+                    <tr>
+                        <td>{{ schedule.idDoctor }}</td>
+                        <td>{{ schedule.date|date("d-m-Y H:i") }}</td>
+                        <td>{{ schedule.slots }}</td>
+                        <td>{{ schedule.cabinet }}</td>
+                        <td><a href="{{ path('updateSchedule', {'id': schedule.id}) }}">Редактировать</a></td>
+                        <td><a href="{{ path('deleteSchedule', {'id': schedule.id}) }}">Удалить</a></td>
+                    </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    {% else %}
+        <h1>Only for admins</h1>
+    {% endif %}
+
+{% endblock %}

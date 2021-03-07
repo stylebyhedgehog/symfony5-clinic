@@ -1,0 +1,24 @@
+{# templates/registration/index.html.twig #} {% extends 'user/userPanel.html.twig' %} {%
+    block body %}
+        <div class="container">
+            <table class="table">
+                <tr>
+                    <th>Доктор</th>
+                    <th>Дата</th>
+                    <th>Слоты</th>
+                    <th>Кабинет</th>
+                </tr>
+                {% for schedule in listSchedule %}
+                    <tr>
+                        <td>{{ schedule.idDoctor }}</td>
+                        <td>{{ schedule.date|date("d-m-Y H:i") }}</td>
+                        <td>{{ schedule.slots }}</td>
+                        <td>{{ schedule.cabinet }}</td>
+                    </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+
+
+{% endblock %}

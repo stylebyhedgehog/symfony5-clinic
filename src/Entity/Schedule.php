@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use PhpParser\Comment\Doc;
+
 /**
  * Schedule
  * @ORM\Table(name="schedule")
@@ -20,9 +22,12 @@ class Schedule
     private $id;
 
     /**
-     * @var int
+     * @var Doctor
      *
-     * @ORM\Column(name="id_doctor", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Doctor")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_doctor", referencedColumnName="id", onDelete="CASCADE")
+     * })
      */
     private $idDoctor;
 
@@ -54,12 +59,12 @@ class Schedule
         return $this->id;
     }
 
-    public function getIdDoctor(): ?int
+    public function getIdDoctor(): ?Doctor
     {
         return $this->idDoctor;
     }
 
-    public function setIdDoctor(int $idDoctor): self
+    public function setIdDoctor(Doctor $idDoctor): self
     {
         $this->idDoctor = $idDoctor;
 
@@ -102,32 +107,7 @@ class Schedule
         return $this;
     }
 
-//    /**
-//     * @return Collection|Usr[]
-//     */
-//    public function getIdUser(): Collection
-//    {
-//        return $this->idUser;
-//    }
-//
-//    public function addIdUser(Users $idUser): self
-//    {
-//        if (!$this->idUser->contains($idUser)) {
-//            $this->idUser[] = $idUser;
-//            $idUser->addIdSchedule($this);
-//        }
-//
-//        return $this;
-//    }
-//
-//    public function removeIdUser(Users $idUser): self
-//    {
-//        if ($this->idUser->removeElement($idUser)) {
-//            $idUser->removeIdSchedule($this);
-//        }
-//
-//        return $this;
-//    }
+
 
 
 }

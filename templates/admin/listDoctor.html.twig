@@ -1,0 +1,32 @@
+{# templates/registration/index.html.twig #} {% extends 'admin/adminPanel.html.twig' %} {%
+    block body %}
+    {% if 'ROLE_ADMIN' in app.user.roles  %}
+        <div class="container">
+            <table class="table">
+                <tr>
+                    <th>имя</th>
+                    <th>фамилия</th>
+                    <th>специальность</th>
+                    <th>записи</th>
+                    <th>Редактировать</th>
+                    <th>Удалить</th>
+                </tr>
+                {% for doctor in doctors %}
+                    <tr>
+                        <td>{{ doctor.name }}</td>
+                        <td>{{ doctor.surname }}</td>
+                        <td>{{ doctor.speciality }}</td>
+                        <td>Посмотреть записи</td>
+                        <td><a href="{{ path('updateDoctor', {'id': doctor.id}) }}">Редактировать</a></td>
+                        <td><a href="{{ path('deleteDoctor', {'id': doctor.id}) }}">Удалить</a></td>
+                    </tr>
+
+                {% endfor %}
+
+            </table>
+        </div>
+    {% else %}
+        <h1>Only for admins</h1>
+    {% endif %}
+
+{% endblock %}
