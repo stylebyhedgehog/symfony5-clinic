@@ -1,0 +1,48 @@
+{# templates/registration/index.html.twig #} {% extends 'global/navigation.html.twig' %} {%
+    block body %}
+    {% if  app.user %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 ml-md-auto">
+                    <div class="card bg-light mb-3 mt-5" style="width: 800px">
+                        <div class="card-body">
+                            <div class="card-header mb-3">Заявка</div>
+
+                            <div class="form_group">
+                                <div class="col-md-12 mb-3">
+                                    {{ schedule.idDoctor}}
+                                </div>
+                            </div>
+                            <div class="form_group">
+                                <div class="col-md-12 mb-3">
+                                    {{ schedule.slots}}
+                                </div>
+                            </div>
+                            <div class="form_group">
+                                <div class="col-md-12 mb-3">
+                                    {{ schedule.date|date("d-m-Y H:i")}}
+                                </div>
+                            </div>
+                            <div class="form_group">
+                                <div class="col-md-12 mb-3">
+                                    {{ schedule.cabinet}}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-8 col-md-offset-4" style="margin-top:5px;">
+                                    <button type="button" class="btn btn-primary">
+                                          <a href="{{ path('addAppointment', {'id_schedule': schedule.id , 'id_user': app.user.id }) }}">Создать</a>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <h1>Only for logged in users</h1>
+    {% endif %}
+
+{% endblock %}
