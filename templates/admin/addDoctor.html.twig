@@ -1,4 +1,4 @@
-{# templates/registration/index.html.twig #} {% extends 'admin/adminPanel.html.twig' %} {%
+{# templates/registration/index.html.twig #} {% extends 'global/navigation.html.twig' %} {%
     block body %}
     {% if 'ROLE_ADMIN' in app.user.roles  %}
         <div class="container">
@@ -6,30 +6,30 @@
                 <div class="col-md-10 ml-md-auto">
                     <div class="card bg-light mb-3 mt-5" style="width: 800px">
                         <div class="card-body">
-                            <div class="card-header mb-3">Add Doctor Form</div>
+                            <div class="card-header mb-3">Добавить врача</div>
                             {{ form_start(form) }}
 
                             <div class="form_group">
                                 <div class="col-md-12 mb-3">
-                                    {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_row(form.name, {'attr': {'class': 'form-control'} , 'label': 'Имя' }) }}
                                 </div>
                             </div>
                             <div class="form_group">
                                 <div class="col-md-12 mb-3">
                                     {{ form_row(form.surname, {'attr': {'class':
-                                        'form-control'}}) }}
+                                        'form-control'} ,  'label': 'Фамилия'}) }}
                                 </div>
                             </div>
                             <div class="form_group">
                                 <div class="col-md-12 mb-3">
                                     {{ form_row(form.speciality, {'attr': {'class':
-                                        'form-control'}}) }}
+                                        'form-control'} ,  'label': 'Специальность'}) }}
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4" style="margin-top:5px;">
                                     <button type="submit" class="btn btn-primary">
-                                        <i class="fa fa-btn fa-user"></i> Add Doctor
+                                        <i class="fa fa-btn fa-user"></i> Добавить
                                     </button>
                                 </div>
                             </div>

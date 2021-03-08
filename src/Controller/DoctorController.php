@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use App\Entity\Doctor;
 use App\Form\DoctorType;
@@ -17,23 +15,19 @@ class DoctorController extends AbstractController
 {
     /**
      * Add new Doctor CREATE
-     * @Route("/admin/addDoctor", name="addDoctor")
+     * @Route("/admin/doctor/add", name="addDoctor")
      * @param Request $request
+     * @param DoctorRepository $doctorRepository
      * @return Response
      */
-    public function addDoctor(Request $request): Response
+    public function addDoctor(Request $request,DoctorRepository $doctorRepository): Response
     {
         $doctor = new Doctor();
-
         $form = $this->createForm(DoctorType::class, $doctor);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($doctor);
-            $em->flush();
-
+            $doctorRepository->save($doctor);
             return $this->redirectToRoute('allDoctors');
         }
         return $this->render('admin/addDoctor.html.twig', [
@@ -43,7 +37,7 @@ class DoctorController extends AbstractController
 
     /**
      * Show all Doctors READ
-     * @Route ("/admin/doctors",name="allDoctors")
+     * @Route ("/admin/doctor",name="allDoctors")
      * @param DoctorRepository $doctorRepository
      * @return Response
      */
@@ -56,22 +50,18 @@ class DoctorController extends AbstractController
 
     /**
      * Update Doctor with <id> UPDATE
-     * @Route ("/admin/doctors/edit/{id<\d+>}",name="updateDoctor")
+     * @Route ("/admin/doctor/edit/{id<\d+>}",name="updateDoctor")
      * @param Request $request
      * @param DoctorRepository $doctorRepository
      * @return RedirectResponse|Response
      */
     public function updateDoctor(Request $request,DoctorRepository $doctorRepository){
-        $doctor = $doctorRepository->find($request->get("id"));
+        $idDoctor=$request->get("id");
+        $doctor = $doctorRepository->find($idDoctor);
         $form = $this->createForm(DoctorType::class, $doctor);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($doctor);
-            $em->flush();
-
+            $doctorRepository->save($doctor);
             return $this->redirectToRoute('allDoctors');
         }
         return $this->render('admin/addDoctor.html.twig', [
@@ -81,7 +71,7 @@ class DoctorController extends AbstractController
 
     /**
      * Delete Doctor with <id> DELETE
-     * @Route ("/admin/doctors/delete/{id<\d+>}",name="deleteDoctor")
+     * @Route ("/admin/doctor/delete/{id<\d+>}",name="deleteDoctor")
      * @param Request $request
      * @param DoctorRepository $doctorRepository
      * @return RedirectResponse

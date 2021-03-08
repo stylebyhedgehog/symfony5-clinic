@@ -6,10 +6,10 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="users_recordings")
- * @ORM\Entity(repositoryClass="App\Repository\UsersRecordingsRepository")
+ * @ORM\Table(name="user_appointments")
+ * @ORM\Entity(repositoryClass="App\Repository\UserAppointmentsRepository")
  */
-class UsersRecordings
+class UserAppointments
 {
     /**
      * @var int
@@ -20,24 +20,30 @@ class UsersRecordings
     private $id;
 
     /**
-     * @var Usr
+     * @var Usr|string
      *
      * @ORM\ManyToOne(targetEntity="Usr")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id",onDelete="CASCADE")
      * })
      */
     private $idUser;
 
     /**
-     * @var Schedule
+     * @var Schedule|string
      *
      * @ORM\ManyToOne(targetEntity="Schedule")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_schedule", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_schedule", referencedColumnName="id",onDelete="CASCADE")
      * })
      */
     private $idSchedule;
+
+    /**
+     * @var string
+     * @ORM\Column (name="status",type="string", length=15, nullable=false)
+     */
+    private $status;
 
     public function getIdUser(): ?Usr
     {
@@ -66,6 +72,22 @@ class UsersRecordings
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus(string $status): void
+    {
+        $this->status = $status;
     }
 
 

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'global/navigation.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
 
@@ -13,17 +13,25 @@
             You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
+    <div class="col-md-10 ml-md-auto">
+        <div class="card bg-light mb-3 mt-5" style="width: 800px">
+            <div class="card-body">
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" required>
+                <div class="card-header mb-3">Авторизация</div>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+                <div class="form_group">
+                    <div class="col-md-12 mb-3">
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+                    </div>
+                </div>
 
+                <div class="form_group">
+                    <div class="col-md-12 mb-3">
+                        <input type="password" name="password" id="inputPassword" class="form-control" required>
+                    </div>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
     {#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
         See https://symfony.com/doc/current/security/remember_me.html
@@ -35,8 +43,15 @@
         </div>
     #}
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
+                <div class="form-group">
+                    <div class="col-md-8 col-md-offset-4" style="margin-top:5px;">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-btn fa-user"></i> Войти
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
 {% endblock %}

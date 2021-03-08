@@ -20,6 +20,7 @@ class ScheduleRepository extends ServiceEntityRepository
     }
 
     public function decSlots(int $idSchedule){
+        //TODO ADD VALIDATION
         $entityManager = $this->getEntityManager();
         $schedule=$this->find($idSchedule);
         $schedule->setSlots($schedule->getSlots()-1);
@@ -27,6 +28,7 @@ class ScheduleRepository extends ServiceEntityRepository
     }
 
     public function findByDoctorSpeciality(string $filterParam, DoctorRepository $doctorRepository){
+      //TODO ADD VALIDATION
         $filteredSchedule=[];
         $schedule=$this->findAll();
         if ($filterParam =="all"){
@@ -40,9 +42,15 @@ class ScheduleRepository extends ServiceEntityRepository
         }
         return $filteredSchedule;
     }
-    public function delete(Schedule $schedule)
-    {
-        $this->getEntityManager()->remove($schedule);
-        $this->getEntityManager()->flush();
+    public function delete(Schedule $schedule){
+        $em=$this->getEntityManager();
+        $em->remove($schedule);
+        $em->flush();
+    }
+
+    public function save(Schedule $schedule){
+        $em=$this->getEntityManager();
+        $em->persist($schedule);
+        $em->flush();
     }
 }

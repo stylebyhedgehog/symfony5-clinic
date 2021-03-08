@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\configurations\SpecialityConfig;
 use App\Entity\Schedule;
 use App\Form\ScheduleType;
 use App\Repository\DoctorRepository;
@@ -15,36 +16,32 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class ScheduleController extends AbstractController
 {
     /**
-     * @Route("/", name="listSpeciality")
+     * @Route("/schedule", name="listSpeciality")
      * @return RedirectResponse|Response
      */
     public function indexUser(){
-        return $this->render('user/listSpeciality.html.twig');
+        $listSpeciality= SpecialityConfig::getList();
+        return $this->render('global/listSpeciality.html.twig',
+        ['listSpeciality' => $listSpeciality]);
     }
-
-
 
     /**
      * Add new Schedule Item CREATE
-     * @Route("/admin/addSchedule", name="addSchedule")
+     * @Route("/admin/schedule/add", name="addSchedule")
      * @param Request $request
+     * @param ScheduleRepository $scheduleRepository
      * @return RedirectResponse|Response
      */
-    public function addSchedule(Request $request){
+    public function addSchedule(Request $request,ScheduleRepository $scheduleRepository){
         $schedule = new Schedule();
-
         $form = $this->createForm(ScheduleType::class, $schedule);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $id=$form["doctor"]->getData();
             $schedule->setIdDoctor($id);
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($schedule);
-            $em->flush();
-
-            return $this->redirectToRoute('allSchedule');
+            $scheduleRepository->save($schedule);
+            return $this->redirectToRoute('listSpeciality');
         }
         return $this->render('admin/addSchedule.html.twig', [
             'form' => $form->createView(),
@@ -52,22 +49,11 @@ class ScheduleController extends AbstractController
     }
 
 
-    /**
-     * Show all Schedule ROLE_ADMIN Items READ
-     * @Route ("/admin/schedule",name="allSchedule")
-     * @param ScheduleRepository $scheduleRepository
-     * @return Response
-     */
-    public function listSchedule(ScheduleRepository $scheduleRepository){
-        $listSchedule=$scheduleRepository->findAll();
-        return $this->render('admin/listSchedule.html.twig',[
-            "listSchedule"=>$listSchedule,
-        ]);
-    }
+
 
     /**
-     * Show all Schedule ROLE_USER Items READ
-     * @Route ("/schedule/{speciality}",name="allScheduleUser")
+     * Show all|by speciality Schedule Items READ
+     * @Route ("/schedule/{speciality}",name="listSchedule")
      * @param Request $request
      * @param ScheduleRepository $scheduleRepository
      * @param DoctorRepository $doctorRepository
@@ -75,7 +61,7 @@ class ScheduleController extends AbstractController
      */
     public function listScheduleBySpeciality(Request $request,ScheduleRepository $scheduleRepository, DoctorRepository $doctorRepository){
         $listSchedule=$scheduleRepository->findByDoctorSpeciality($request->get("speciality"),$doctorRepository);
-        return $this->render('user/listSchedule.html.twig',[
+        return $this->render('global/listSchedule.html.twig',[
             "listSchedule"=>$listSchedule,
         ]);
     }
@@ -90,15 +76,11 @@ class ScheduleController extends AbstractController
     public function updateSchedule(Request $request,ScheduleRepository $scheduleRepository){
         $schedule = $scheduleRepository->find($request->get("id"));
         $form = $this->createForm(ScheduleType::class, $schedule);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($schedule);
-            $em->flush();
-
-            return $this->redirectToRoute('allSchedule');
+            $scheduleRepository->save($schedule);
+            return $this->redirectToRoute('listSpeciality');
         }
         return $this->render('admin/addSchedule.html.twig', [
             'form' => $form->createView(),
@@ -113,9 +95,10 @@ class ScheduleController extends AbstractController
      * @return RedirectResponse
      */
     public function deleteSchedule(Request $request,ScheduleRepository $scheduleRepository){
-        $schedule=$scheduleRepository->find($request->get("id"));
+        $scheduleId=$request->get("id");
+        $schedule=$scheduleRepository->find($scheduleId);
         $scheduleRepository->delete($schedule);
-        return $this->redirectToRoute('allSchedule');
+        return $this->redirectToRoute('listSpeciality');
     }
 
 

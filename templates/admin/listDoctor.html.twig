@@ -1,13 +1,13 @@
-{# templates/registration/index.html.twig #} {% extends 'admin/adminPanel.html.twig' %} {%
+{# templates/registration/index.html.twig #} {% extends 'global/navigation.html.twig' %} {%
     block body %}
     {% if 'ROLE_ADMIN' in app.user.roles  %}
         <div class="container">
             <table class="table">
                 <tr>
-                    <th>имя</th>
-                    <th>фамилия</th>
-                    <th>специальность</th>
-                    <th>записи</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Специальность</th>
+                    <th>Записи</th>
                     <th>Редактировать</th>
                     <th>Удалить</th>
                 </tr>

@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\configurations\SpecialityConfig;
 use App\Entity\Doctor;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -18,11 +19,7 @@ class DoctorType extends AbstractType
             ->add('name', TextType::class)
             ->add('surname', TextType::class)
             ->add('speciality', ChoiceType::class, [
-                'choices'  => [
-                    'glas' => "glas",
-                    'nose' => "nose",
-                    'rot' => "rot",
-                ]
+                'choices'  => SpecialityConfig::getList()
             ]);
     }
 

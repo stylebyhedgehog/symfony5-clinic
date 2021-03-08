@@ -1,0 +1,15 @@
+{# templates/list/index.html.twig #} {% extends 'global/navigation.html.twig' %} {% block
+    body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card bg-light mb-3 mt-3">
+                    <div class="card-body">
+                        <div class="card-header">Перечень специальностей</div>
+                        {% for item in listSpeciality%}
+                        <a href="{{ path('listSchedule', {'speciality': item}) }}">{{ item }}</a>
+                        {% endfor %}
+                    </div>
+        </div>
+    </div>
+{% endblock %}

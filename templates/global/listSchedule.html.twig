@@ -1,0 +1,43 @@
+{# templates/registration/index.html.twig #} {% extends 'global/navigation.html.twig' %} {%
+    block body %}
+        <div class="container">
+            <table class="table">
+                <tr>
+                    <th>Доктор</th>
+                    <th>Дата</th>
+                    <th>Слоты</th>
+                    <th>Кабинет</th>
+                    {% if app.user and 'ROLE_ADMIN' not in app.user.roles%}
+                    <th>Записаться</th>
+                    {% endif %}
+                    {% if app.user and 'ROLE_ADMIN' in app.user.roles%}
+                        <th>Редактировать</th>
+                        <th>Удалить</th>
+                    {% endif %}
+
+                </tr>
+                {% for schedule in listSchedule %}
+                    <tr>
+                        <td>{{ schedule.idDoctor }}</td>
+                        <td>{{ schedule.date|date("d-m-Y H:i") }}</td>
+                        <td>{{ schedule.slots }}</td>
+                        <td>{{ schedule.cabinet }}</td>
+
+                        {% if app.user %}
+                            <td> <a href="{{ path('showAppointment', {'id_schedule': schedule.id }) }}">Записаться</a></td>
+                        {% else %}
+                            <td> <a href="{{ path('app_login') }}">Авторизоваться</a></td>
+                        {% endif %}
+
+                        {% if app.user and 'ROLE_ADMIN' in app.user.roles%}
+                            <td><a href="{{ path('updateSchedule', {'id': schedule.id}) }}">Редактировать</a></td>
+                            <td><a href="{{ path('deleteSchedule', {'id': schedule.id}) }}">Удалить</a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+
+
+{% endblock %}

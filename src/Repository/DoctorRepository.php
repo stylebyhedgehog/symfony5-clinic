@@ -20,35 +20,14 @@ class DoctorRepository extends ServiceEntityRepository
     }
 
     public function delete(Doctor $doctor){
-        $this->getEntityManager()->remove($doctor);
-        $this->getEntityManager()->flush();
+        $em=$this->getEntityManager();
+        $em->remove($doctor);
+        $em->flush();
     }
-    // /**
-    //  * @return Doctor[] Returns an array of Doctor objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Doctor
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+    public function save(Doctor $doctor){
+        $em=$this->getEntityManager();
+        $em->persist($doctor);
+        $em->flush();
     }
-    */
 }
