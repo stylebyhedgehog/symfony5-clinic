@@ -47,6 +47,41 @@ class MedicalCart
      */
     private $passport;
 
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $job;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $policy;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $payment_type;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $insurance_program;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $status;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $type;
     public function getIdUser(): ?Usr
     {
         return $this->idUser;
@@ -121,6 +156,54 @@ class MedicalCart
     public function setPassport(string $passport): void
     {
         $this->passport = $passport;
+    }
+
+    public function getJob(): ?string
+    {
+        return $this->job;
+    }
+
+    public function setJob(string $job): self
+    {
+        $this->job = $job;
+
+        return $this;
+    }
+
+    public function getPolicy(): ?string
+    {
+        return $this->policy;
+    }
+
+    public function setPolicy(string $policy): self
+    {
+        $this->policy = $policy;
+
+        return $this;
+    }
+
+    public function getPaymentType(): ?string
+    {
+        return $this->payment_type;
+    }
+
+    public function setPaymentType(string $payment_type): self
+    {
+        $this->payment_type = $payment_type;
+
+        return $this;
+    }
+
+    public function getInsuranceProgram(): ?string
+    {
+        return $this->insurance_program;
+    }
+
+    public function setInsuranceProgram(string $insurance_program): self
+    {
+        $this->insurance_program = $insurance_program;
+
+        return $this;
     }
 
 

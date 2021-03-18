@@ -23,9 +23,9 @@
                         <td>{{ schedule.slots }}</td>
                         <td>{{ schedule.cabinet }}</td>
 
-                        {% if app.user %}
+                        {% if app.user and 'ROLE_ADMIN' not in app.user.roles %}
                             <td> <a href="{{ path('showAppointment', {'id_schedule': schedule.id }) }}">Записаться</a></td>
-                        {% else %}
+                        {% elseif 'ROLE_ADMIN' not in app.user.roles %}
                             <td> <a href="{{ path('app_login') }}">Авторизоваться</a></td>
                         {% endif %}
 
