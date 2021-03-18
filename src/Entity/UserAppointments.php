@@ -90,6 +90,6 @@ class UserAppointments
         $this->status = $status;
     }
 
-
+//TODO возможность использовать разные типы оплаты (в заявки)
 
 }

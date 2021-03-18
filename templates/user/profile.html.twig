@@ -1,0 +1,148 @@
+{# templates/registration/index.html.twig #} {% extends 'user/navigation.html.twig' %} {%
+    block body %}
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        .container {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .tabs {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tabs__links {
+            display: flex;
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 10px;
+            order: 0;
+            white-space: nowrap;
+            background-color: #fff;
+            border: 1px solid #e3f2fd;
+            box-shadow: 0 2px 4px 0 #e3f2fd;
+        }
+
+        .tabs__links>a {
+            display: inline-block;
+            text-decoration: none;
+            padding: 6px 10px;
+            text-align: center;
+            color: #1976d2;
+        }
+
+        .tabs__links>a:hover {
+            background-color: rgba(227, 242, 253, 0.3);
+        }
+
+        .tabs>#content-1:target~.tabs__links>a[href="#content-1"],
+        .tabs>#content-2:target~.tabs__links>a[href="#content-2"],
+        .tabs>#content-3:target~.tabs__links>a[href="#content-3"] {
+            background-color: #bbdefb;
+            cursor: default;
+        }
+
+        .tabs>div:not(.tabs__links) {
+            display: none;
+            order: 1;
+        }
+
+        .tabs>div:target {
+            display: block;
+        }
+    </style>
+    {% if  app.user %}
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-10 ml-md-auto">
+                    <div class="card bg-light mb-3 mt-5" style="width: 800px">
+{#                        навигация по профилю#}
+
+                        <div class="tabs">
+                            <div id="content-1"  class="card-body">
+                                    <div  class="form_group">
+                                        <div class="col-md-12 mb-3">
+                                            {{ user.id}}
+                                        </div>
+                                    </div>
+                                    <div class="form_group">
+                                        <div class="col-md-12 mb-3">
+                                            {{ user.username}}
+                                        </div>
+                                    </div>
+                            </div>
+
+                            <div id="content-2" class="card-body">
+                                {% if medicalCart is not null %}
+                                    <div  class="form_group">
+                                        <div class="col-md-12 mb-3">
+                                            {{ medicalCart.name}}
+                                        </div>
+                                    </div>
+                                    <div class="form_group">
+                                        <div class="col-md-12 mb-3">
+                                            {{ medicalCart.surname}}
+                                        </div>
+                                    </div>
+                                    <div class="form_group">
+                                        <div class="col-md-12 mb-3">
+                                            {{ medicalCart.passport}}
+                                        </div>
+                                    </div>
+                                    <div class="form_group">
+                                        <div class="col-md-12 mb-3">
+                                            {{ medicalCart.status}}
+                                        </div>
+                                    </div>
+                                {% else %}
+                                 <a href="{{ path('user_medical_cart_create',{'id_user': app.user.id} ) }}" style="color: red;">Добавьте медицинскую карту</a>
+                                {% endif %}
+                            </div>
+                            <div id="content-3" class="card-body">
+                                <table class="table">
+                                    <tr>
+                                        <th>Доктор</th>
+                                        <th>Специальность</th>
+                                        <th>Дата</th>
+                                        <th>Статус</th>
+                                    </tr>
+                                    {% for appointment in appointments %}
+                                        <tr>
+                                            <td>{{ appointment.idSchedule.idDoctor }}</td>
+                                            <td>{{ appointment.idSchedule.idDoctor.speciality }}</td>
+                                            <td>{{ appointment.idSchedule.date|date("d-m-Y H:i") }}</td>
+                                            <td>{{ appointment.status }}</td>
+                                        </tr>
+
+                                    {% endfor %}
+
+                                </table>
+                            </div>
+
+                            <div class="tabs__links">
+                                <a href="#content-1">Личные данные</a>
+                                <a href="#content-2">Медицинская карта</a>
+                                <a href="#content-3">Записи</a>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <h1>Only for logged in users</h1>
+    {% endif %}
+
+{% endblock %}

@@ -18,6 +18,11 @@ class UserAppointmentsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, UserAppointments::class);
     }
+    public function save(UserAppointments $userAppointments){
+        $em=$this->getEntityManager();
+        $em->persist($userAppointments);
+        $em->flush();
+    }
 
     // /**
     //  * @return UserAppointments[] Returns an array of UserAppointments objects

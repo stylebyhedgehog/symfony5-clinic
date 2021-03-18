@@ -1,0 +1,70 @@
+{# templates/registration/index.html.twig #} {% extends 'user/navigation.html.twig' %} {%
+    block body %}
+    {% if app.user %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 ml-md-auto">
+                    <div class="card bg-light mb-3 mt-5" style="width: 800px">
+                        <div class="card-body">
+                            <div class="card-header mb-3">Cоздать медицинскую карту</div>
+                            {{ form_start(form) }}
+
+                            <div class="form_group">
+                                <div class="col-md-12 mb-3">
+                                    {{ form_row(form.name, {'attr': {'class': 'form-control'} , 'label': 'Имя' }) }}
+                                </div>
+                            </div>
+                            <div class="form_group">
+                                <div class="col-md-12 mb-3">
+                                    {{ form_row(form.surname, {'attr': {'class':
+                                        'form-control'} ,  'label': 'Фамилия'}) }}
+                                </div>
+                            </div>
+                            <div class="form_group">
+                                <div class="col-md-12 mb-3">
+                                    {{ form_row(form.passport, {'attr': {'class':
+                                        'form-control'} ,  'label': 'Паспорт'}) }}
+                                </div>
+                            </div>
+                            <div class="form_group">
+                                <div class="col-md-12 mb-3">
+                                    {{ form_row(form.job, {'attr': {'class':
+                                        'form-control'} ,  'label': 'Работа'}) }}
+                                </div>
+                            </div>
+                            <div class="form_group">
+                                <div class="col-md-12 mb-3">
+                                    {{ form_row(form.policy, {'attr': {'class':
+                                        'form-control'} ,  'label': 'Страховой полис'}) }}
+                                </div>
+                            </div>
+                            <div class="form_group">
+                                <div class="col-md-12 mb-3">
+                                    {{ form_row(form.insurance_program, {'attr': {'class':
+                                        'form-control'} ,  'label': 'Страховая программа'}) }}
+                                </div>
+                            </div>
+                            <div class="form_group">
+                                <div class="col-md-12 mb-3">
+                                    {{ form_row(form.type, {'attr': {'class':
+                                        'form-control'} ,  'label': 'Тип'}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-8 col-md-offset-4" style="margin-top:5px;">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-btn fa-user"></i> Добавить
+                                    </button>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <h1>Only for admins</h1>
+    {% endif %}
+
+{% endblock %}

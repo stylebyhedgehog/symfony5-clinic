@@ -1,0 +1,39 @@
+{# templates/registration/index.html.twig #} {% extends 'admin/navigation.html.twig' %} {%
+    block body %}
+    {% if 'ROLE_ADMIN' in app.user.roles %}
+        <div class="container">
+            <table class="table">
+                <tr>
+                    <th>ID</th>
+                    <th>Доктор</th>
+                    <th>Специальность</th>
+                    <th>Кабинет</th>
+                    <th>Дата</th>
+                    <th>Клиент</th>
+                    <th>Действие</th>
+
+                </tr>
+                {% for appointment in appointments %}
+                    <tr>
+                        <td>{{ appointment.id }}</td>
+                        <td>{{ appointment.idSchedule.idDoctor }}</td>
+                        <td>{{ appointment.idSchedule.idDoctor.speciality}}</td>
+                        <td>{{ appointment.idSchedule.cabinet}}</td>
+                        <td>{{ appointment.idSchedule.date|date("d-m-Y H:i")}}</td>
+                        <td>{{ appointment.idUser.username}}</td>
+                        {% if appointment.status is same as( 'На рассмотрении' ) %}
+                        <td><a href="{{ path('admin_appointment_edit', {'id_appointment': appointment.id, 'type': '0'}) }}">Принять</a></td>
+                        {% elseif appointment.status is same as( 'Принято' ) %}
+                        <td><a href="{{ path('admin_appointment_edit', {'id_appointment': appointment.id, 'type': '1'}) }}">Завершить</a></td>
+                        {% endif %}
+                    </tr>
+
+                {% endfor %}
+
+            </table>
+        </div>
+    {% else %}
+        <h1>Only for admins</h1>
+    {% endif %}
+
+{% endblock %}

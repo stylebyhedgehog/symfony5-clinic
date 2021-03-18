@@ -1,6 +1,6 @@
-{# templates/registration/index.html.twig #} {% extends 'global/navigation.html.twig' %} {%
+{# templates/registration/index.html.twig #} {% extends 'admin/navigation.html.twig' %} {%
     block body %}
-    {% if 'ROLE_ADMIN' in app.user.roles  %}
+    {% if 'ROLE_ADMIN' in app.user.roles   %}
         <div class="container">
             <div class="row">
                 <div class="col-md-10 ml-md-auto">

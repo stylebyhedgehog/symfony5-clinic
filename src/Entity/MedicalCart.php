@@ -58,12 +58,7 @@ class MedicalCart
      * @ORM\Column(type="string")
      */
     private $policy;
-    
-    /**
-     * @var string
-     * @ORM\Column(type="string")
-     */
-    private $payment_type;
+
 
     /**
      * @var string
@@ -182,17 +177,6 @@ class MedicalCart
         return $this;
     }
 
-    public function getPaymentType(): ?string
-    {
-        return $this->payment_type;
-    }
-
-    public function setPaymentType(string $payment_type): self
-    {
-        $this->payment_type = $payment_type;
-
-        return $this;
-    }
 
     public function getInsuranceProgram(): ?string
     {
@@ -202,6 +186,30 @@ class MedicalCart
     public function setInsuranceProgram(string $insurance_program): self
     {
         $this->insurance_program = $insurance_program;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

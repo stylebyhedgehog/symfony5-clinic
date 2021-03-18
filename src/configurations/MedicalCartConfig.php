@@ -6,22 +6,16 @@ namespace App\configurations;
 
 class MedicalCartConfig
 {
-    public static function getCartStatus(){
-        return [
-            "awaiting_verification",
-            "verified"
-        ];
-}
+    public static  $status_await="На рассмотрении";
+    public static  $status_ok="Подтверждена";
+
     public static function getCartType(){
         return [
-            "attached"
+            "Прикрепленный"=>"Прикрепленный",
+            "Направление из другого ЛПУ"=>"Направление из другого ЛПУ",
+            "Оказание разовой платной услуги"=>"Оказание разовой платной услуги"
 
         ];
     }
-    public static function getPaymentType(){
-        return [
-            "attached"
 
-        ];
-    }
 }

@@ -47,4 +47,10 @@ class MedicalCartRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function save(MedicalCart $medical_cart)
+    {
+        $em=$this->getEntityManager();
+        $em->persist($medical_cart);
+        $em->flush();
+    }
 }

@@ -1,0 +1,15 @@
+{# templates/registration/index.html.twig #}
+{% if 'ROLE_ADMIN' not in app.user.roles %}
+    {% set navigation = 'user/navigation.html.twig' %}
+{% else %}
+    {% set navigation =  'admin/navigation.html.twig' %}
+{% endif %}
+{% extends navigation%}
+ {%
+    block body %}
+        <div class="container">
+            <h1>{{ message }}</h1>
+        </div>
+
+
+{% endblock %}

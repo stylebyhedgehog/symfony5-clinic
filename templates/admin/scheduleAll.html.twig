@@ -1,0 +1,35 @@
+{# templates/registration/index.html.twig #} {% extends 'admin/navigation.html.twig' %} {%
+    block body %}
+        <div class="container">
+            <table class="table">
+                <tr>
+                    <th>Доктор</th>
+                    <th>Дата</th>
+                    <th>Свободные места</th>
+                    <th>Кабинет</th>
+                    {% if app.user and 'ROLE_ADMIN' in app.user.roles%}
+                        <th>Редактировать</th>
+                        <th>Удалить</th>
+                    {% endif %}
+
+                </tr>
+                {% for schedule in schedules %}
+                    <tr>
+                        <td>{{ schedule.idDoctor }}</td>
+                        <td>{{ schedule.date|date("d-m-Y H:i") }}</td>
+                        <td>{{ schedule.slots }}</td>
+                        <td>{{ schedule.cabinet }}</td>
+
+
+                        {% if app.user and 'ROLE_ADMIN' in app.user.roles%}
+                            <td><a href="{{ path('admin_schedule_edit', {'id': schedule.id}) }}">Редактировать</a></td>
+                            <td><a href="{{ path('admin_schedule_remove', {'id': schedule.id}) }}">Удалить</a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+
+
+{% endblock %}

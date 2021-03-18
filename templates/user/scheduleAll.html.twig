@@ -1,0 +1,37 @@
+{# templates/registration/index.html.twig #} {% extends 'user/navigation.html.twig' %} {%
+    block body %}
+        <div class="container">
+            <table class="table">
+                <tr>
+                    <th>Доктор</th>
+                    <th>Дата</th>
+                    <th>Свободные места</th>
+                    <th>Кабинет</th>
+                    {% if app.user %}
+                    <th>Записаться</th>
+                    {% endif %}
+
+
+                </tr>
+                {% for schedule in schedules %}
+                    <tr>
+                        <td>{{ schedule.idDoctor }}</td>
+                        <td>{{ schedule.date|date("d-m-Y H:i") }}</td>
+                        <td>{{ schedule.slots }}</td>
+                        <td>{{ schedule.cabinet }}</td>
+
+                        {% if app.user  %}
+                            <td> <a href="{{ path('user_appointment_one', {'id_schedule': schedule.id }) }}">Записаться</a></td>
+                        {% else %}
+                            <td> <a href="{{ path('app_login') }}">Авторизоваться</a></td>
+                        {% endif %}
+
+
+                    </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+
+
+{% endblock %}

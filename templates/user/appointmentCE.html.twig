@@ -1,4 +1,4 @@
-{# templates/registration/index.html.twig #} {% extends 'global/navigation.html.twig' %} {%
+{# templates/registration/index.html.twig #} {% extends 'user/navigation.html.twig' %} {%
     block body %}
     {% if  app.user %}
         <div class="container">
@@ -31,7 +31,7 @@
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4" style="margin-top:5px;">
                                     <button type="button" class="btn btn-primary">
-                                          <a href="{{ path('addAppointment', {'id_schedule': schedule.id , 'id_user': app.user.id }) }}">Создать</a>
+                                          <a href="{{ path('user_appointment_create', {'id_schedule': schedule.id , 'id_user': app.user.id }) }}">Создать</a>
                                     </button>
                                 </div>
                             </div>
