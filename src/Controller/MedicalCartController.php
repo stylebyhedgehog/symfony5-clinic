@@ -11,4 +11,7 @@ class MedicalCartController extends AbstractController
     public function getOne(){
 
     }
+    public function getAll(){
+
+    }
 }
