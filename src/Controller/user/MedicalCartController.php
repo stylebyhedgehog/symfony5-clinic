@@ -33,7 +33,13 @@ class MedicalCartController extends AbstractController
         $this->userRepository=$userRepository;
         $this->medicalCartRepository=$medicalCartRepository;
     }
+    function debug_to_console($data) {
+        $output = $data;
+        if (is_array($output))
+            $output = implode(',', $output);
 
+        echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+    }
 
     /**
      * @Route ("/create", name="user_medical_cart_create")
@@ -41,6 +47,8 @@ class MedicalCartController extends AbstractController
      * @return RedirectResponse|Response
      */
     public function create(Request $request){
+        $this->debug_to_console(dirname(__FILE__));
+
         $medical_cart = new MedicalCart();
         $form = $this->createForm(MedicalCartType::class, $medical_cart);
         $form->handleRequest($request);
@@ -49,6 +57,14 @@ class MedicalCartController extends AbstractController
             $user=$this->userRepository->find($request->get("id_user"));
             $medical_cart->setStatus(MedicalCartConfig::$status_await);
             $medical_cart->setIdUser($user);
+            $image = $form->get('filename')->getData();
+            $upload_directory="images";
+            $originalFilename = $image->getClientOriginalName();
+            $image->move(
+                $upload_directory,
+                $originalFilename
+            );
+            $medical_cart->setFilename($originalFilename);
             $this->medicalCartRepository->save($medical_cart);
             return $this->redirectToRoute('user_profile',array("id_user"=>$request->get("id_user")));
         }

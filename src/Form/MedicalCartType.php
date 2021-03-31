@@ -6,6 +6,7 @@ use App\configurations\MedicalCartConfig;
 use App\Entity\MedicalCart;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,6 +24,10 @@ class MedicalCartType extends AbstractType
             ->add('insurance_program',TextType::class)
             ->add('type', ChoiceType::class, [
                 'choices'  => MedicalCartConfig::getCartType()
+            ])
+            ->add('filename', FileType::class, [
+                'mapped' => false,
+                'required' => false
             ])
         ;
     }

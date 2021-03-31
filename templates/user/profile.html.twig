@@ -84,6 +84,11 @@
 
                             <div id="content-2" class="card-body">
                                 {% if medicalCart is not null %}
+                                    <div style="width: 12%;">
+                                        <img src="{{ '/images/' ~ medicalCart.filename }}" alt="ss"  width="100%" >
+
+                                    </div>
+
                                     <div  class="form_group">
                                         <div class="col-md-12 mb-3">
                                             {{ medicalCart.name}}

@@ -77,6 +77,11 @@ class MedicalCart
      * @ORM\Column(type="string")
      */
     private $type;
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $filename;
     public function getIdUser(): ?Usr
     {
         return $this->idUser;
@@ -210,6 +215,18 @@ class MedicalCart
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    public function setFilename(string $filename): self
+    {
+        $this->filename = $filename;
 
         return $this;
     }
